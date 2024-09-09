@@ -10,15 +10,6 @@ import (
 
 var Validate = validator.New()
 
-// adding payload
-func ParseJSON(r *http.Request, payload any) error {
-	if r.Body == nil {
-		return fmt.Errorf("missing request body")
-	}
-
-	return json.NewDecoder(r.Body).Decode(payload)
-}
-
 // json response
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
 	w.Header().Add("Content-Type", "application/json")
@@ -31,25 +22,26 @@ func WriteError(w http.ResponseWriter, status int, err error) {
 	WriteJSON(w, status, map[string]string{"error": err.Error()})
 }
 
-// func ParseJSON(r *http.Request, v any) error {
-// 	if r.Body == nil {
-// 		return fmt.Errorf("missing request body")
-// 	}
+// adding payload
+func ParseJSON(r *http.Request, v any) error {
+	if r.Body == nil {
+		return fmt.Errorf("missing request body")
+	}
 
-// 	return json.NewDecoder(r.Body).Decode(v)
-// }
+	return json.NewDecoder(r.Body).Decode(v)
+}
 
-// func GetTokenFromRequest(r *http.Request) string {
-// 	tokenAuth := r.Header.Get("Authorization")
-// 	tokenQuery := r.URL.Query().Get("token")
+func GetTokenFromRequest(r *http.Request) string {
+	tokenAuth := r.Header.Get("Authorization")
+	tokenQuery := r.URL.Query().Get("token")
 
-// 	if tokenAuth != "" {
-// 		return tokenAuth
-// 	}
+	if tokenAuth != "" {
+		return tokenAuth
+	}
 
-// 	if tokenQuery != "" {
-// 		return tokenQuery
-// 	}
+	if tokenQuery != "" {
+		return tokenQuery
+	}
 
-// 	return ""
-// }
+	return ""
+}
