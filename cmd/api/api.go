@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dchief1/go-ecommerce/service/auth/product"
+	"github.com/dchief1/go-ecommerce/service/product"
 	"github.com/dchief1/go-ecommerce/service/user"
 	"github.com/gorilla/mux"
 )
